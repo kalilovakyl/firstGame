@@ -107,7 +107,6 @@ void draw_sprite(sprite &sprite, Vector2 pos, float width, float height) {
 }
 
 void load_sounds() {
-    InitAudioDevice();
 
     coin_sound = LoadSound("data/sounds/coin.wav");
     exit_sound = LoadSound("data/sounds/exit.wav");
@@ -118,4 +117,13 @@ void unload_sounds() {
     UnloadSound(exit_sound);
 }
 
+void load_music() {
+    rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/music/rain.mp3");
+    SetMusicVolume(rain_music, 0.05f);
+    PlayMusicStream(rain_music);
+}
+
+void unload_music() {
+    UnloadMusicStream(rain_music);
+}
 #endif // IMAGES_H

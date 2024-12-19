@@ -40,14 +40,17 @@ void draw_game() {
 
 int main() {
     InitWindow(1800, 800, "Platformer");
+    InitAudioDevice();
     SetTargetFPS(60);
     SetExitKey(KEY_Z);
     load_fonts();
     load_images();
     load_sounds();
     load_level();
+    load_music();
 
     while (!WindowShouldClose()) {
+        UpdateMusicStream(rain_music);
         BeginDrawing();
         switch (game_state){
         case GAME_STATE_MENU: {
@@ -86,6 +89,7 @@ int main() {
     unload_sounds();
     unload_images();
     unload_fonts();
+    unload_music();
 
     CloseAudioDevice();
     CloseWindow();
