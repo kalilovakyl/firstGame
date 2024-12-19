@@ -69,6 +69,7 @@ void draw_level() {
                 case PLAYER:
                 case COIN:
                 case EXIT:
+                case THORNS:
                     draw_image(air_image, pos, cell_size);
                     break;
                 case WALL:
@@ -82,6 +83,9 @@ void draw_level() {
                     break;
                 case EXIT:
                     draw_image(exit_image, pos, cell_size);
+                    break;
+                case THORNS:
+                    draw_image(thorns_image, pos, cell_size);
                     break;
                 default:
                     break;

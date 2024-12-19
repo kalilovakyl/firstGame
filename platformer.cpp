@@ -6,7 +6,6 @@
 #include "graphics.h"
 #include "assets.h"
 #include "utilities.h"
-#include <ctime>
 
 void update_game() {
     game_frame++;

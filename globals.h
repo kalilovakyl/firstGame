@@ -9,11 +9,12 @@
 
 /* Game Elements */
 
-const char WALL   = '#';
-const char AIR    = ' ';
-const char PLAYER = '@';
-const char COIN   = '*';
-const char EXIT   = 'E';
+const char WALL     = '#';
+const char AIR      = ' ';
+const char PLAYER   = '@';
+const char COIN     = '*';
+const char EXIT     = 'E';
+const char THORNS   = 'I';
 
 /* Levels */
 
@@ -28,7 +29,7 @@ char LEVEL_1_DATA[] = {
     '#', '*', '*', '*', '*', '*', '*', '*', '*', '*', '#',
     '#', '*', '*', '*', '*', '*', '*', '*', '*', '*', '#',
     '#', '*', '*', '*', '*', '*', '*', '*', '*', '*', '#',
-    '#', ' ', '@', ' ', ' ', ' ', ' ', ' ', 'E', ' ', '#',
+    '#', ' ', '@', ' ', ' ', 'I', ' ', ' ', 'E', ' ', '#',
     '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'
 };
 
@@ -47,7 +48,7 @@ char LEVEL_2_DATA[] = {
     '#', ' ', '#', '#', '#', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', '#', ' ', '#', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', '#', ' ', ' ', '#', '#', ' ', '#',
-    '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', 'E', ' ', '#',
+    '#', ' ', 'I', ' ', ' ', ' ', ' ', '#', 'E', ' ', '#',
     '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#',
 };
 
@@ -200,6 +201,7 @@ Text victory_subtitle = {
 Texture2D wall_image;
 Texture2D air_image;
 Texture2D exit_image;
+Texture2D thorns_image;
 
 struct sprite {
     size_t frame_count    = 0;
@@ -269,6 +271,7 @@ void draw_victory_menu();
 // LEVEL_H
 
 bool is_colliding(Vector2 pos, char look_for = '#', level &level = current_level);
+bool is_colliding_thorns(Vector2 pos, char look_for = 'I', level &level = current_level);
 char& get_collider(Vector2 pos, char look_for, level &level = current_level);
 
 void load_level(int offset = 0);

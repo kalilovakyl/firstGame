@@ -16,17 +16,19 @@ void unload_fonts() {
 }
 
 void load_images() {
-    wall_image    = LoadTexture("data/images/wall.png");
-    air_image     = LoadTexture("data/images/air.png");
-    exit_image    = LoadTexture("data/images/exit.png");
-    coin_sprite   = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
-    player_sprite = load_sprite("data/images/player/player", ".png", 3, true, 10);
+    wall_image      = LoadTexture("data/images/wall.png");
+    air_image       = LoadTexture("data/images/air.png");
+    exit_image      = LoadTexture("data/images/exit.png");
+    thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/images/thorns.png");
+    coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
+    player_sprite   = load_sprite("data/images/player/player", ".png", 3, true, 10);
 }
 
 void unload_images() {
     UnloadTexture(wall_image);
     UnloadTexture(air_image);
     UnloadTexture(exit_image);
+    UnloadTexture(thorns_image);
     unload_sprite(player_sprite);
     unload_sprite(coin_sprite);
 }

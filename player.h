@@ -44,6 +44,9 @@ void update_player() {
         unload_level();
         load_level(1);
     }
+    if (is_colliding_thorns(player_pos, THORNS)) {
+        spawn_player();
+    }
 }
 
 #endif // PLAYER_H
