@@ -4,7 +4,7 @@
 #include "globals.h"
 
 bool is_colliding(Vector2 pos, char look_for, level &level) {
-    Rectangle player_hitbox = {pos.x, pos.y, 0.98f, 0.98f};
+    Rectangle player_hitbox = {pos.x, pos.y, 1.0f, 1.0f};
 
     for (size_t row = 0; row < level.rows; ++row) {
         for (size_t column = 0; column < level.columns; ++column) {

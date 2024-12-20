@@ -13,17 +13,19 @@ void update_game() {
         game_state = GAME_STATE_PAUSE;
     }
     if (IsKeyDown(KEY_RIGHT) || IsKeyDown(KEY_D)) {
+        right = true;
         move_player_horizontally(MOVEMENT_SPEED);
-    }
+    } 
 
     if (IsKeyDown(KEY_LEFT) || IsKeyDown(KEY_A)) {
+        right = false;
         move_player_horizontally(-MOVEMENT_SPEED);
     }
 
     // Calculating collisions to decide whether the player is allowed to jump: don't want them to suction cup to the ceiling or jump midair
     is_player_on_ground = is_colliding({player_pos.x, player_pos.y + 0.1f}, WALL);
     if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) || IsKeyDown(KEY_SPACE)) && is_player_on_ground) {
-            player_y_velocity = -JUMP_STRENGTH;
+        player_y_velocity = -JUMP_STRENGTH;
     }
 
     update_player();
@@ -54,16 +56,18 @@ int main() {
         BeginDrawing();
         switch (game_state){
         case GAME_STATE_MENU: {
+            ClearBackground(BLACK);
             update_game();
             draw_menu();
             if (IsKeyPressed(KEY_ENTER)){
             game_state = GAME_STATE_PLAY;
+            load_level();
             }
             break;
             }
         case GAME_STATE_PLAY:{
-            update_game();
             draw_game();
+            update_game();
             break;
             }
         case GAME_STATE_PAUSE: {
@@ -75,6 +79,7 @@ int main() {
             break;
             }
         case GAME_STATE_WIN:{
+            ClearBackground(BLACK);
             draw_victory_menu();
             if (IsKeyPressed(KEY_ENTER)) {
                 game_state = GAME_STATE_MENU;

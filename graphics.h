@@ -65,13 +65,13 @@ void draw_level() {
             char cell = current_level.data[row * current_level.columns + column];
             // The first image layer
             switch (cell) {
-                case AIR:
+                /*case AIR:
                 case PLAYER:
                 case COIN:
                 case EXIT:
                 case THORNS:
                     draw_image(air_image, pos, cell_size);
-                    break;
+                    break;*/
                 case WALL:
                     draw_image(wall_image, pos, cell_size);
                     break;
@@ -87,6 +87,8 @@ void draw_level() {
                 case THORNS:
                     draw_image(thorns_image, pos, cell_size);
                     break;
+                case STAR:
+                    draw_sprite(star_sprite, pos, cell_size);
                 default:
                     break;
             }

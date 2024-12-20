@@ -16,12 +16,14 @@ void unload_fonts() {
 }
 
 void load_images() {
-    wall_image      = LoadTexture("data/images/wall.png");
+    wall_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/blue_wall.png");
     air_image       = LoadTexture("data/images/air.png");
-    exit_image      = LoadTexture("data/images/exit.png");
+    exit_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/exit.png");
     thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/images/thorns.png");
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
-    player_sprite   = load_sprite("data/images/player/player", ".png", 3, true, 10);
+    player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 3, true, 10);
+    snow_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/background_snow/snow",     ".png", 2, true, 30);
+    star_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star_enemy",     ".png", 4, true, 18);
 }
 
 void unload_images() {
@@ -31,10 +33,23 @@ void unload_images() {
     UnloadTexture(thorns_image);
     unload_sprite(player_sprite);
     unload_sprite(coin_sprite);
+    unload_sprite(snow_sprite);
+    unload_sprite(star_sprite);
 }
 
 void draw_image(Texture2D image, Vector2 pos, float size) {
     draw_image(image, pos, size, size);
+}
+
+bool right = true;
+float reflect_image = -1.0f;
+void draw_image_player(Texture2D image, Vector2 pos, float width, float height) {
+    Rectangle source = { 0.0f, 0.0f, static_cast<float>(image.width), static_cast<float>(image.height) };
+    if (!right) {
+        source.width *= reflect_image;
+    }
+    Rectangle destination = { pos.x, pos.y, width, height };
+    DrawTexturePro(image, source, destination, { 0.0f, 0.0f }, 0.0f, WHITE);
 }
 
 void draw_image(Texture2D image, Vector2 pos, float width, float height) {
@@ -107,7 +122,6 @@ void draw_sprite(sprite &sprite, Vector2 pos, float width, float height) {
 }
 
 void load_sounds() {
-
     coin_sound = LoadSound("data/sounds/coin.wav");
     exit_sound = LoadSound("data/sounds/exit.wav");
 }
@@ -119,7 +133,7 @@ void unload_sounds() {
 
 void load_music() {
     rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/music/rain.mp3");
-    SetMusicVolume(rain_music, 0.05f);
+    SetMusicVolume(rain_music, 0.1f);
     PlayMusicStream(rain_music);
 }
 
