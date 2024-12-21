@@ -20,6 +20,7 @@ void load_images() {
     air_image       = LoadTexture("data/images/air.png");
     exit_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/exit.png");
     thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/images/thorns.png");
+    obstacles_image = wall_image;
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
     player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 3, true, 10);
     snow_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/background_snow/snow",     ".png", 2, true, 30);
@@ -133,7 +134,7 @@ void unload_sounds() {
 
 void load_music() {
     rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/music/rain.mp3");
-    SetMusicVolume(rain_music, 0.1f);
+    SetMusicVolume(rain_music,  1.0f);
     PlayMusicStream(rain_music);
 }
 

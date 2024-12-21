@@ -34,21 +34,22 @@ void update_game() {
 
 void draw_game() {
     // TODO
-
     ClearBackground(BLACK);
     draw_level();
     draw_game_overlay();
 }
 
 int main() {
-    InitWindow(1800, 800, "Platformer");
+    InitWindow(1920, 1080, "Platformer");
+    ToggleFullscreen();
+
     InitAudioDevice();
     SetTargetFPS(60);
     SetExitKey(KEY_Z);
     load_fonts();
     load_images();
     load_sounds();
-    load_level();
+    load_level(4);
     load_music();
 
     while (!WindowShouldClose()) {

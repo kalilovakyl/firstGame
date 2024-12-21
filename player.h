@@ -40,9 +40,9 @@ void update_player() {
         player_score+=10;
         PlaySound(coin_sound);
     }
-    if (is_colliding(player_pos, EXIT)) {
-        unload_level();
-        load_level(1);
+    if (is_colliding_exit(player_pos, EXIT)) {
+            unload_level();
+            load_level(1);
     }
     if (is_colliding_thorns(player_pos, THORNS)) {
         spawn_player();

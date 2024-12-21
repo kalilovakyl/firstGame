@@ -61,6 +61,10 @@ void draw_level() {
                     shift_to_center.x + static_cast<float>(column) * cell_size,
                     shift_to_center.y + static_cast<float>(row) * cell_size
             };
+            Vector2 posObstacle = {
+                shift_to_center.x + static_cast<float>(column) * cell_size,
+                        shift_to_center.y + static_cast<float>(row) * cell_size
+            };
 
             char cell = current_level.data[row * current_level.columns + column];
             // The first image layer
@@ -74,6 +78,12 @@ void draw_level() {
                     break;*/
                 case WALL:
                     draw_image(wall_image, pos, cell_size);
+                    break;
+                case OBSTACLES:
+                    for (int i = 0; i < 10; ++i) {
+                        draw_image(wall_image, posObstacle, cell_size);
+                        posObstacle.x -= 20.0f;
+                    }
                     break;
             }
             // The second image layer
