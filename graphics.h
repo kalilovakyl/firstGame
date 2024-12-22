@@ -179,4 +179,8 @@ void draw_victory_menu() {
     draw_text(victory_subtitle);
 }
 
+void draw_game_over_menu() {
+    draw_text(game_over_title);
+    draw_text(game_over_subtitle);
+}
 #endif // GRAPHICS_H

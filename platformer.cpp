@@ -86,12 +86,12 @@ int main() {
             break;
             }
         case GAME_OVER_STATE:{
-        ClearBackground(BLACK);
-        draw_victory_menu();
-        if (IsKeyPressed(KEY_ENTER)) {
-            game_state = GAME_STATE_MENU;
-        }
-        break;
+            ClearBackground(BLACK);
+            draw_game_over_menu();
+            if (IsKeyPressed(KEY_ENTER)) {
+                game_state = GAME_STATE_MENU;
+            }
+            break;
             }
         }
         EndDrawing();

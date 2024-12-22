@@ -217,6 +217,17 @@ Text victory_subtitle = {
     { 0.50f, 0.65f }
 };
 
+Text game_over_title = {
+        "You Lose!",
+    {0.50f,0.50f },
+          100.0f,
+         RED
+};
+Text game_over_subtitle = {
+    "Press Enter to go back to menu",
+    { 0.50f, 0.65f }
+};
+
 /* Images and Sprites */
 
 Texture2D wall_image;
