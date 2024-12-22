@@ -2,10 +2,12 @@
 #define GLOBALS_H
 
 #include "raylib.h"
-
+#include "utilities.h"
 #include <string>
 #include <cstddef>
 #include <cmath>
+
+#include "globals.h"
 
 /* Game Elements */
 
@@ -16,7 +18,7 @@ const char COIN      = '*';
 const char EXIT      = 'E';
 const char THORNS    = 'I';
 const char TELEPORT  = 'T';
-const char STAR      = 'S';
+const char ENEMY     = 'S';
 const char BOOTS     = 'B';
 
 /* Levels */
@@ -48,7 +50,7 @@ char LEVEL_2_DATA[] = {
     '#', '#', '#', ' ', '#', ' ', 'I', ' ', ' ', ' ', '#',
     '#', ' ', ' ', ' ', '#', ' ', '#', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ', '#', '#',
-    '#', ' ', '#', ' ', '#', ' ', '*', '#', ' ', ' ', '#',
+    '#', ' ', ' ', '#', '#', ' ', '*', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', '#',
     '#', '#', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
@@ -66,7 +68,7 @@ char LEVEL_3_DATA[] = {
     '#', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', ' ', '#', '#', '#', '#', 'I', 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'I', '#',
-    '#', ' ', ' ', ' ', '*', '#', '#', '#', '#', 'I', ' ', ' ', ' ', ' ', ' ', 'I', ' ', '#', '#', '#',
+    '#', ' ', ' ', ' ', 'B', '#', '#', '#', '#', 'I', ' ', ' ', ' ', ' ', ' ', 'I', ' ', '#', '#', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', ' ', ' ', ' ', '#', '#', '#', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#',
     '#', ' ', '#', ' ', 'I', 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', ' ', ' ', '#',
@@ -120,7 +122,7 @@ char LEVEL_5_DATA[] = {
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', 'I', ' ', ' ', '#', '#',
-    '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ',
+    '#', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ',
     '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', '#', ' ',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ',
     '#', ' ', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ',
@@ -162,6 +164,13 @@ float player_y_velocity = 0;
 bool is_player_on_ground;
 
 int player_score = 0;
+
+// Enemy data
+
+const float ENEMY_MOVEMENT_SPEED = 0.02f;
+float enemy_direction = 1; // not const because will be changed
+
+Vector2 enemy_pos;
 
 /* Graphic Metrics */
 
@@ -249,7 +258,7 @@ struct sprite {
 sprite coin_sprite;
 sprite player_sprite;
 sprite teleport_sprite;
-sprite star_sprite;
+sprite enemy_sprite;
 sprite double_jump_boots_sprite;
 
 /* Sounds */
@@ -271,11 +280,15 @@ struct victory_ball {
     float radius;
 };
 
-const size_t VICTORY_BALL_COUNT     = 2000;
-const float VICTORY_BALL_MAX_SPEED  = 2.0f;
-const float VICTORY_BALL_MIN_RADIUS = 2.0f;
-const float VICTORY_BALL_MAX_RADIUS = 3.0f;
-const Color VICTORY_BALL_COLOR      = { 180, 180, 180, 255 };
+const size_t VICTORY_BALL_COUNT     = 20;
+const float VICTORY_BALL_MAX_SPEED  = 0.6f;
+const float VICTORY_BALL_MIN_RADIUS = 10.0f;
+const float VICTORY_BALL_MAX_RADIUS = 50.0f;
+Color VICTORY_BALL_COLOR  = {     static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)) };
+
 const unsigned char VICTORY_BALL_TRAIL_TRANSPARENCY = 10;
 victory_ball victory_balls[VICTORY_BALL_COUNT];
 
@@ -305,6 +318,7 @@ void draw_menu();
 void draw_game_overlay();
 void draw_level();
 void draw_player();
+void draw_enemy();
 void draw_pause_menu();
 void create_victory_menu_background();
 void animate_victory_menu_background();
@@ -326,6 +340,11 @@ void unload_level();
 void spawn_player();
 void move_player_horizontally(float delta);
 void update_player();
+
+// ENEMY_H
+
+void spawn_enemy();
+void update_enemy();
 
 // ASSETS_H
 
@@ -350,6 +369,7 @@ void draw_sprite(sprite &sprite, Vector2 pos, float width, float height);
 void draw_sprite(sprite &sprite, Vector2 pos, float size);
 void draw_sprite_player(sprite &sprite, Vector2 pos, float width, float height);
 void draw_sprite_player(sprite &sprite, Vector2 pos, float size);
+
 
 
 void load_sounds();

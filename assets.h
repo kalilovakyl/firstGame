@@ -22,9 +22,9 @@ void load_images() {
     thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/thorns.png");
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
     player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 4, true, 15);
-    teleport_sprite              = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
-    star_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star_enemy",     ".png", 4, true, 18);
-    double_jump_boots_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/double_jump_boots/boots",     ".png", 4, true, 20);
+    teleport_sprite               = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
+    enemy_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star",     ".png", 3, true, 30);
+    double_jump_boots_sprite      = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/double_jump_boots/boots",     ".png", 4, true, 20);
 }
 
 void unload_images() {
@@ -35,7 +35,7 @@ void unload_images() {
     unload_sprite(player_sprite);
     unload_sprite(coin_sprite);
     unload_sprite(teleport_sprite);
-    unload_sprite(star_sprite);
+    unload_sprite(enemy_sprite);
     unload_sprite(double_jump_boots_sprite);
 }
 
@@ -128,6 +128,7 @@ void draw_sprite(sprite &sprite, Vector2 pos, float width, float height) {
     }
     sprite.prev_game_frame = game_frame;
 }
+
 void draw_sprite_player(sprite &sprite, Vector2 pos, float size) {
     draw_sprite_player(sprite, pos, size, size);
 }
@@ -150,6 +151,7 @@ void draw_sprite_player(sprite &sprite, Vector2 pos, float width, float height) 
     }
     sprite.prev_game_frame = game_frame;
 }
+
 
 
 void load_sounds() {

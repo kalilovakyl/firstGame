@@ -97,8 +97,6 @@ void draw_level() {
                 case THORNS:
                     draw_image(thorns_image, pos, cell_size);
                     break;
-                case STAR:
-                    draw_sprite(star_sprite, pos, cell_size);
                 default:
                     break;
             }
@@ -106,6 +104,7 @@ void draw_level() {
     }
 
     draw_player();
+    draw_enemy();
 }
 
 void draw_player() {
@@ -115,6 +114,15 @@ void draw_player() {
     };
 
     draw_sprite_player(player_sprite, pos, cell_size);
+}
+
+void draw_enemy() {
+    Vector2 pos = {
+        shift_to_center.x + enemy_pos.x * cell_size,
+        shift_to_center.y + enemy_pos.y * cell_size
+    };
+
+    draw_sprite(enemy_sprite, pos, cell_size);
 }
 
 void draw_pause_menu() {
@@ -162,6 +170,11 @@ void animate_victory_menu_background() {
 void draw_victory_menu_background() {
     for (auto &ball : victory_balls) {
         DrawCircleV({ ball.x, ball.y }, ball.radius, VICTORY_BALL_COLOR);
+        VICTORY_BALL_COLOR  = {     static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)) };
+
     }
 }
 

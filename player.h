@@ -50,6 +50,11 @@ void update_player() {
         spawn_player();
         // game_state = GAME_OVER_STATE;
     }
+    if (player_pos.x == enemy_pos.x && player_pos.y == enemy_pos.y) {
+        PlaySound(death_sound);
+        spawn_player();
+        // game_state = GAME_OVER_STATE;
+    }
     if (is_colliding(player_pos,    BOOTS)) {
         PlaySound(take_boots_sound);
         double_jump = true;

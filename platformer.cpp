@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "level.h"
 #include "player.h"
+#include "enemy.h"
 #include "graphics.h"
 #include "assets.h"
 #include "utilities.h"
@@ -33,6 +34,8 @@ void update_game() {
         count_double_jumps++;
     }
     update_player();
+
+    update_enemy();
 }
 
 void draw_game() {
@@ -43,7 +46,7 @@ void draw_game() {
 }
 
 int main() {
-    InitWindow(static_cast<int>(screen_size.x), static_cast<int>(screen_size.y), "Platformer");
+    InitWindow(1400, 600, "Platformer");
 
     InitAudioDevice();
     SetTargetFPS(60);
@@ -51,7 +54,7 @@ int main() {
     load_fonts();
     load_images();
     load_sounds();
-    load_level();
+    load_level(4);
     load_music();
 
     while (!WindowShouldClose()) {

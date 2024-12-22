@@ -91,6 +91,7 @@ void load_level(int offset) {
     current_level = {rows, columns, current_level_data};
 
     spawn_player();
+    spawn_enemy();
     derive_graphics_metrics_from_loaded_level();
 }
 
