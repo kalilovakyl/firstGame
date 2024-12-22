@@ -20,11 +20,11 @@ void load_images() {
     air_image       = LoadTexture("data/images/air.png");
     exit_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/exit.png");
     thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/thorns.png");
-    obstacles_image = wall_image;
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
-    player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 4, true, 10);
-    teleport_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
-    star_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star_enemy",     ".png", 4, true, 18);
+    player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 4, true, 15);
+    teleport_sprite              = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
+    star_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star_enemy",     ".png", 4, true, 18);
+    double_jump_boots_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/double_jump_boots/boots",     ".png", 4, true, 20);
 }
 
 void unload_images() {
@@ -36,6 +36,7 @@ void unload_images() {
     unload_sprite(coin_sprite);
     unload_sprite(teleport_sprite);
     unload_sprite(star_sprite);
+    unload_sprite(double_jump_boots_sprite);
 }
 
 void draw_image(Texture2D image, Vector2 pos, float size) {
@@ -157,7 +158,9 @@ void load_sounds() {
     death_sound    = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/death.wav");
     jump_sound     = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/jump.mp3");
     teleport_sound = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/teleport.wav");
-    SetSoundVolume(teleport_sound, 2.0f);
+
+    take_boots_sound = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/take_boots.wav");
+    SetSoundVolume(teleport_sound, 1.0f);
 }
 
 void unload_sounds() {

@@ -79,14 +79,14 @@ void draw_level() {
                 case WALL:
                     draw_image(wall_image, pos, cell_size);
                     break;
-                case OBSTACLES:
-                    draw_image(wall_image, posObstacle, cell_size);
-                    break;
             }
             // The second image layer
             switch (cell) {
                 case COIN:
                     draw_sprite(coin_sprite, pos, cell_size);
+                    break;
+                case BOOTS:
+                    draw_sprite(double_jump_boots_sprite, pos, cell_size);
                     break;
                 case EXIT:
                     draw_image(exit_image, pos, cell_size);

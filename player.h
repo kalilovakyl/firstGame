@@ -36,9 +36,6 @@ void update_player() {
     }
 
     if (is_colliding(player_pos, COIN)) {
-        double_jump = true;
-        count_double_jumps = 0;
-        count_double_jumps = 0;
         get_collider(player_pos, COIN) = ' ';
         player_score+=10;
         PlaySound(coin_sound);
@@ -51,7 +48,14 @@ void update_player() {
     if (is_colliding_thorns(player_pos, THORNS)) {
         PlaySound(death_sound);
         spawn_player();
-        game_state = GAME_OVER_STATE;
+        // game_state = GAME_OVER_STATE;
+    }
+    if (is_colliding(player_pos,    BOOTS)) {
+        PlaySound(take_boots_sound);
+        double_jump = true;
+        count_double_jumps = 0;
+        get_collider(player_pos, BOOTS) = ' ';
+        player_sprite = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player_boots/player_boots", ".png", 4, true, 10);
     }
 }
 

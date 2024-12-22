@@ -24,8 +24,13 @@ void update_game() {
 
     // Calculating collisions to decide whether the player is allowed to jump: don't want them to suction cup to the ceiling or jump midair
     is_player_on_ground = is_colliding({player_pos.x, player_pos.y + 0.1f}, WALL);
-    if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) || IsKeyDown(KEY_SPACE)) && is_player_on_ground) {
+    if ((IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_SPACE)) && is_player_on_ground) {
         player_y_velocity = -JUMP_STRENGTH;
+        count_double_jumps = 0;
+    }
+    else if ((IsKeyPressed(KEY_UP) || IsKeyPressed(KEY_W) || IsKeyPressed(KEY_SPACE)) && double_jump == true && !is_player_on_ground && count_double_jumps < 1) {
+        player_y_velocity = -JUMP_STRENGTH;
+        count_double_jumps++;
     }
     update_player();
 }
@@ -70,7 +75,7 @@ int main() {
             break;
             }
         case GAME_STATE_PAUSE: {
-            draw_game();
+            ClearBackground(BLACK);
             draw_pause_menu();
             if (IsKeyPressed(KEY_ESCAPE)) {
                 game_state = GAME_STATE_PLAY;
