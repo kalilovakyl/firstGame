@@ -24,7 +24,7 @@ bool is_colliding_thorns(Vector2 pos, char look_for, level &level) {
     for (size_t row = 0; row < level.rows; ++row) {
         for (size_t column = 0; column < level.columns; ++column) {
             if (level.data[row * level.columns + column] == look_for) {
-                Rectangle block_hitbox = {(float) column + 0.1f, (float) row + 0.4f,  0.7f, 0.5f};
+                Rectangle block_hitbox = {(float) column + 0.2f, (float) row + 0.4f,  0.6f, 0.5f};
                 if (CheckCollisionRecs(player_hitbox, block_hitbox)) {
                     return true;
                 }
@@ -33,7 +33,7 @@ bool is_colliding_thorns(Vector2 pos, char look_for, level &level) {
     }
     return false;
 }
-bool is_colliding_exit(Vector2 pos, char look_for, level &level) {
+bool is_colliding_teleport(Vector2 pos, char look_for, level &level) {
     Rectangle player_hitbox = {pos.x, pos.y, 1.0f, 1.0f};
 
     for (size_t row = 0; row < level.rows; ++row) {
@@ -65,7 +65,6 @@ char& get_collider(Vector2 pos, char look_for, level &level) {
 
     return level.data[static_cast<int>(roundf(pos.y) * level.columns + roundf(pos.x))];
 }
-
 
 
 void load_level(int offset) {

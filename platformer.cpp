@@ -27,9 +27,7 @@ void update_game() {
     if ((IsKeyDown(KEY_UP) || IsKeyDown(KEY_W) || IsKeyDown(KEY_SPACE)) && is_player_on_ground) {
         player_y_velocity = -JUMP_STRENGTH;
     }
-
     update_player();
-
 }
 
 void draw_game() {
@@ -40,8 +38,7 @@ void draw_game() {
 }
 
 int main() {
-    InitWindow(1920, 1080, "Platformer");
-    ToggleFullscreen();
+    InitWindow(static_cast<int>(screen_size.x), static_cast<int>(screen_size.y), "Platformer");
 
     InitAudioDevice();
     SetTargetFPS(60);
@@ -49,12 +46,13 @@ int main() {
     load_fonts();
     load_images();
     load_sounds();
-    load_level(4);
+    load_level();
     load_music();
 
     while (!WindowShouldClose()) {
         UpdateMusicStream(rain_music);
         BeginDrawing();
+
         switch (game_state){
         case GAME_STATE_MENU: {
             ClearBackground(BLACK);
@@ -86,6 +84,14 @@ int main() {
                 game_state = GAME_STATE_MENU;
             }
             break;
+            }
+        case GAME_OVER_STATE:{
+        ClearBackground(BLACK);
+        draw_victory_menu();
+        if (IsKeyPressed(KEY_ENTER)) {
+            game_state = GAME_STATE_MENU;
+        }
+        break;
             }
         }
         EndDrawing();

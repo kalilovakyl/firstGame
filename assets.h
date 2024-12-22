@@ -19,11 +19,11 @@ void load_images() {
     wall_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/blue_wall.png");
     air_image       = LoadTexture("data/images/air.png");
     exit_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/exit.png");
-    thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/images/thorns.png");
+    thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/thorns.png");
     obstacles_image = wall_image;
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
-    player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 3, true, 10);
-    snow_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/background_snow/snow",     ".png", 2, true, 30);
+    player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 4, true, 10);
+    teleport_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
     star_sprite     = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star_enemy",     ".png", 4, true, 18);
 }
 
@@ -34,7 +34,7 @@ void unload_images() {
     UnloadTexture(thorns_image);
     unload_sprite(player_sprite);
     unload_sprite(coin_sprite);
-    unload_sprite(snow_sprite);
+    unload_sprite(teleport_sprite);
     unload_sprite(star_sprite);
 }
 
@@ -42,8 +42,19 @@ void draw_image(Texture2D image, Vector2 pos, float size) {
     draw_image(image, pos, size, size);
 }
 
+void draw_image(Texture2D image, Vector2 pos, float width, float height) {
+    Rectangle source = { 0.0f, 0.0f, static_cast<float>(image.width), static_cast<float>(image.height) };
+    Rectangle destination = { pos.x, pos.y, width, height };
+    DrawTexturePro(image, source, destination, { 0.0f, 0.0f }, 0.0f, WHITE);
+}
+void draw_image_player(Texture2D image, Vector2 pos, float size) {
+    draw_image(image, pos, size, size);
+}
+
 bool right = true;
+
 float reflect_image = -1.0f;
+
 void draw_image_player(Texture2D image, Vector2 pos, float width, float height) {
     Rectangle source = { 0.0f, 0.0f, static_cast<float>(image.width), static_cast<float>(image.height) };
     if (!right) {
@@ -53,11 +64,6 @@ void draw_image_player(Texture2D image, Vector2 pos, float width, float height) 
     DrawTexturePro(image, source, destination, { 0.0f, 0.0f }, 0.0f, WHITE);
 }
 
-void draw_image(Texture2D image, Vector2 pos, float width, float height) {
-    Rectangle source = { 0.0f, 0.0f, static_cast<float>(image.width), static_cast<float>(image.height) };
-    Rectangle destination = { pos.x, pos.y, width, height };
-    DrawTexturePro(image, source, destination, { 0.0f, 0.0f }, 0.0f, WHITE);
-}
 
 sprite load_sprite(
     const std::string &file_name_prefix,
@@ -121,20 +127,49 @@ void draw_sprite(sprite &sprite, Vector2 pos, float width, float height) {
     }
     sprite.prev_game_frame = game_frame;
 }
+void draw_sprite_player(sprite &sprite, Vector2 pos, float size) {
+    draw_sprite_player(sprite, pos, size, size);
+}
+
+void draw_sprite_player(sprite &sprite, Vector2 pos, float width, float height) {
+    draw_image_player(sprite.frames[sprite.frame_index], pos, width, height);
+
+    if (sprite.prev_game_frame == game_frame) {
+        return;
+    }
+    if (sprite.frames_skipped < sprite.frames_to_skip) {
+        ++sprite.frames_skipped;
+    } else {
+        sprite.frames_skipped = 0;
+
+        ++sprite.frame_index;
+        if (sprite.frame_index >= sprite.frame_count) {
+            sprite.frame_index = sprite.loop ? 0 : sprite.frame_count - 1;
+        }
+    }
+    sprite.prev_game_frame = game_frame;
+}
+
 
 void load_sounds() {
-    coin_sound = LoadSound("data/sounds/coin.wav");
-    exit_sound = LoadSound("data/sounds/exit.wav");
+    coin_sound     = LoadSound("data/sounds/coin.wav");
+    exit_sound     = LoadSound("data/sounds/exit.wav");
+    death_sound    = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/death.wav");
+    jump_sound     = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/jump.mp3");
+    teleport_sound = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/teleport.wav");
+    SetSoundVolume(teleport_sound, 2.0f);
 }
 
 void unload_sounds() {
     UnloadSound(coin_sound);
     UnloadSound(exit_sound);
+    UnloadSound(death_sound);
+    UnloadSound(jump_sound);
 }
 
 void load_music() {
     rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/music/rain.mp3");
-    SetMusicVolume(rain_music,  1.0f);
+    SetMusicVolume(rain_music,  0.2f);
     PlayMusicStream(rain_music);
 }
 

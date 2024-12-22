@@ -36,16 +36,22 @@ void update_player() {
     }
 
     if (is_colliding(player_pos, COIN)) {
+        double_jump = true;
+        count_double_jumps = 0;
+        count_double_jumps = 0;
         get_collider(player_pos, COIN) = ' ';
         player_score+=10;
         PlaySound(coin_sound);
     }
-    if (is_colliding_exit(player_pos, EXIT)) {
-            unload_level();
-            load_level(1);
+    if (is_colliding_teleport(player_pos, TELEPORT)) {
+        PlaySound(teleport_sound);
+        unload_level();
+        load_level(1);
     }
     if (is_colliding_thorns(player_pos, THORNS)) {
+        PlaySound(death_sound);
         spawn_player();
+        game_state = GAME_OVER_STATE;
     }
 }
 

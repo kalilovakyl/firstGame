@@ -80,10 +80,7 @@ void draw_level() {
                     draw_image(wall_image, pos, cell_size);
                     break;
                 case OBSTACLES:
-                    for (int i = 0; i < 10; ++i) {
-                        draw_image(wall_image, posObstacle, cell_size);
-                        posObstacle.x -= 20.0f;
-                    }
+                    draw_image(wall_image, posObstacle, cell_size);
                     break;
             }
             // The second image layer
@@ -93,6 +90,9 @@ void draw_level() {
                     break;
                 case EXIT:
                     draw_image(exit_image, pos, cell_size);
+                    break;
+                case TELEPORT:
+                    draw_sprite(teleport_sprite, pos, cell_size);
                     break;
                 case THORNS:
                     draw_image(thorns_image, pos, cell_size);
@@ -114,7 +114,7 @@ void draw_player() {
         shift_to_center.y + player_pos.y * cell_size
     };
 
-    draw_sprite(player_sprite, pos, cell_size);
+    draw_sprite_player(player_sprite, pos, cell_size);
 }
 
 void draw_pause_menu() {
