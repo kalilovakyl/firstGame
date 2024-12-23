@@ -20,10 +20,11 @@ void load_images() {
     air_image       = LoadTexture("data/images/air.png");
     exit_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/exit.png");
     thorns_image    = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/thorns.png");
+    logo_image      = LoadTexture("C:/Users/Huawei/CLionProjects/firstGame/data/images/logo.png");
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
     player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 4, true, 15);
     teleport_sprite               = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
-    enemy_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star",     ".png", 3, true, 30);
+    enemy_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star",     ".png", 6, true, 30);
     double_jump_boots_sprite      = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/double_jump_boots/boots",     ".png", 4, true, 20);
 }
 
@@ -32,6 +33,7 @@ void unload_images() {
     UnloadTexture(air_image);
     UnloadTexture(exit_image);
     UnloadTexture(thorns_image);
+    UnloadTexture(logo_image);
     unload_sprite(player_sprite);
     unload_sprite(coin_sprite);
     unload_sprite(teleport_sprite);
@@ -152,29 +154,39 @@ void draw_sprite_player(sprite &sprite, Vector2 pos, float width, float height) 
     sprite.prev_game_frame = game_frame;
 }
 
+void random_color_for_victory_balls() {
+    for (int i = 0; i < VICTORY_BALL_COUNT; ++i) {
+        VICTORY_BALL_COLOR[i]  = {     static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)),
+                                        static_cast<unsigned char>(rand_from_to(0, 255)) };
+    }
+}
+
 
 
 void load_sounds() {
     coin_sound     = LoadSound("data/sounds/coin.wav");
     exit_sound     = LoadSound("data/sounds/exit.wav");
     death_sound    = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/death.wav");
-    jump_sound     = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/jump.mp3");
     teleport_sound = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/teleport.wav");
-
+    SetSoundVolume(teleport_sound, 4.0f);
     take_boots_sound = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/take_boots.wav");
-    SetSoundVolume(teleport_sound, 1.0f);
+    SetSoundVolume(take_boots_sound, 4.0f);
+    robot_kills_sound = LoadSound("C:/Users/Huawei/CLionProjects/firstGame/data/sounds/robot_kills.wav");
 }
 
 void unload_sounds() {
     UnloadSound(coin_sound);
     UnloadSound(exit_sound);
     UnloadSound(death_sound);
-    UnloadSound(jump_sound);
+    UnloadSound(take_boots_sound);
+    UnloadSound(teleport_sound);
 }
 
 void load_music() {
-    rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/simple-platformer-project/data/music/rain.mp3");
-    SetMusicVolume(rain_music,  0.2f);
+    rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/firstGame/data/music/rain.mp3");
+    SetMusicVolume(rain_music,  0.3f);
     PlayMusicStream(rain_music);
 }
 

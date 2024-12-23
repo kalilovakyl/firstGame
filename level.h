@@ -49,6 +49,22 @@ bool is_colliding_teleport(Vector2 pos, char look_for, level &level) {
     return false;
 }
 
+/*bool is_colliding_enemy(Vector2 pos, Vector2 pos2, level &level) {
+    Rectangle player_hitbox = {pos.x + 0.05f, pos.y+ 0.05f, 0.95f, 0.95f};
+
+    for (size_t row = 0; row < level.rows; ++row) {
+        for (size_t column = 0; column < level.columns; ++column) {
+            if (level.data[row * level.columns + column] == look_for) {
+                Rectangle block_hitbox = {(float) column, (float) row, 1.0f, 1.0f};
+                if (CheckCollisionRecs(player_hitbox, block_hitbox)) {
+                    return true;
+                }
+            }
+        }
+    }
+    return false;
+}*/
+
 char& get_collider(Vector2 pos, char look_for, level &level) {
     Rectangle player_hitbox = {pos.x, pos.y, 1.0f, 1.0f};
 

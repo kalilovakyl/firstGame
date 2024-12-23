@@ -17,10 +17,24 @@ void spawn_enemy() {
 }
 
 void update_enemy(){
-    enemy_pos.x += ENEMY_MOVEMENT_SPEED * enemy_direction;
+    /*switch (level_index) {
+        case 0: {
+            enemy_pos.x += ENEMY_MOVEMENT_SPEED * enemy_direction;
+            break;
+        }
+        case 1:
+            case 2:
+        case 3:
+        case 4:
+        {
+            enemy_pos.y += ENEMY_MOVEMENT_SPEED * enemy_direction;
+            enemy_rec.y = enemy_pos.y;
+            break;
+        }
+    }
     if (is_colliding(enemy_pos, WALL)) {
         enemy_direction *= -1;
-    }
+    }*/
 };
 
 #endif //ENEMY_H

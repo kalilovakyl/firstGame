@@ -32,6 +32,7 @@ void derive_graphics_metrics_from_loaded_level() {
 }
 
 void draw_menu() {
+    draw_image(logo_image, {0, 0}, 1950);
     draw_text(game_title);
     draw_text(game_subtitle);
 }
@@ -40,12 +41,12 @@ void draw_game_overlay() {
     Text score = {
         "Score " + std::to_string(player_score),
         { 0.50f, 0.05f },
-        48.0f
+        35.0f
     };
     Text score_shadow = {
         "Score " + std::to_string(player_score),
         { 0.503f, 0.055f },
-        48.0f,
+        35.0f,
         GRAY
     };
 
@@ -60,10 +61,6 @@ void draw_level() {
             Vector2 pos = {
                     shift_to_center.x + static_cast<float>(column) * cell_size,
                     shift_to_center.y + static_cast<float>(row) * cell_size
-            };
-            Vector2 posObstacle = {
-                shift_to_center.x + static_cast<float>(column) * cell_size,
-                        shift_to_center.y + static_cast<float>(row) * cell_size
             };
 
             char cell = current_level.data[row * current_level.columns + column];
@@ -113,6 +110,11 @@ void draw_player() {
         shift_to_center.y + player_pos.y * cell_size
     };
 
+    player_rec.x = pos.x;
+    player_rec.y = pos.y;
+    player_rec.width = cell_size;
+    player_rec.height = cell_size;
+
     draw_sprite_player(player_sprite, pos, cell_size);
 }
 
@@ -122,8 +124,14 @@ void draw_enemy() {
         shift_to_center.y + enemy_pos.y * cell_size
     };
 
+    enemy_rec.x = pos.x;
+    enemy_rec.y = pos.y;
+    enemy_rec.width = cell_size;
+    enemy_rec.height = cell_size;
+
     draw_sprite(enemy_sprite, pos, cell_size);
 }
+
 
 void draw_pause_menu() {
     draw_text(game_paused);
@@ -168,13 +176,10 @@ void animate_victory_menu_background() {
 }
 
 void draw_victory_menu_background() {
+    int i = 0;
     for (auto &ball : victory_balls) {
-        DrawCircleV({ ball.x, ball.y }, ball.radius, VICTORY_BALL_COLOR);
-        VICTORY_BALL_COLOR  = {     static_cast<unsigned char>(rand_from_to(0, 255)),
-                                        static_cast<unsigned char>(rand_from_to(0, 255)),
-                                        static_cast<unsigned char>(rand_from_to(0, 255)),
-                                        static_cast<unsigned char>(rand_from_to(0, 255)) };
-
+        DrawCircleV({ ball.x, ball.y }, ball.radius, VICTORY_BALL_COLOR[i]);
+        i++;
     }
 }
 

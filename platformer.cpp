@@ -34,8 +34,8 @@ void update_game() {
         count_double_jumps++;
     }
     update_player();
-
     update_enemy();
+
 }
 
 void draw_game() {
@@ -46,7 +46,7 @@ void draw_game() {
 }
 
 int main() {
-    InitWindow(1400, 600, "Platformer");
+    InitWindow(static_cast<int>(screen_size.x), static_cast<int>(screen_size.y), "Platformer");
 
     InitAudioDevice();
     SetTargetFPS(60);
@@ -54,13 +54,13 @@ int main() {
     load_fonts();
     load_images();
     load_sounds();
-    load_level(4);
+    load_level();
     load_music();
+    random_color_for_victory_balls();
 
     while (!WindowShouldClose()) {
         UpdateMusicStream(rain_music);
         BeginDrawing();
-
         switch (game_state){
         case GAME_STATE_MENU: {
             ClearBackground(BLACK);

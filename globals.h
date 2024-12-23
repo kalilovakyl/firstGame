@@ -49,7 +49,7 @@ char LEVEL_2_DATA[] = {
     '#', 'T', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#',
     '#', '#', '#', ' ', '#', ' ', 'I', ' ', ' ', ' ', '#',
     '#', ' ', ' ', ' ', '#', ' ', '#', '#', ' ', ' ', '#',
-    '#', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ', '#', '#',
+    '#', 'S', ' ', ' ', '#', ' ', ' ', '#', ' ', '#', '#',
     '#', ' ', ' ', '#', '#', ' ', '*', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', '#',
@@ -78,7 +78,7 @@ char LEVEL_3_DATA[] = {
     '#', 'I', 'I', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', '#', '#', '#', 'I', ' ', 'I', 'I', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', '#', '#', '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
-    '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#',
+    '#', ' ', ' ', 'S', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', 'T', ' ', ' ', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', '#',
@@ -92,11 +92,11 @@ level LEVEL_3 = {
 
 char LEVEL_4_DATA[] = {
     '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#',
-    '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
+    '#', ' ', ' ', ' ', ' ', ' ', 'S', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', '#', '#', 'I', 'I', ' ', ' ', ' ', 'I', ' ', ' ', ' ', ' ', ' ', '#',
     '#', '*', '#', '#', '#', '#', '#', ' ', '#', '#', ' ', ' ', ' ', ' ', '#',
-    '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
+    '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', '#',
     '#', 'I', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
@@ -117,12 +117,12 @@ char LEVEL_5_DATA[] = {
     '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#',
     '#', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'B', ' ', ' ', '#',
-    '#', '#', '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
+    '#', '#', '#', '#', 'S', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', 'I', ' ', ' ', '#', '#',
-    '#', 'T', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ',
+    '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', '#', ' ',
     '#', '#', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', '#', ' ', '#', ' ',
     '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ', '#', ' ',
     '#', ' ', '@', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '#', ' ',
@@ -165,12 +165,22 @@ bool is_player_on_ground;
 
 int player_score = 0;
 
+Rectangle player_rec = {
+    player_pos.x, player_pos.y,
+    1.0f, 1.0f
+};
+
 // Enemy data
 
 const float ENEMY_MOVEMENT_SPEED = 0.02f;
 float enemy_direction = 1; // not const because will be changed
 
 Vector2 enemy_pos;
+
+Rectangle enemy_rec = {
+    enemy_pos.x, enemy_pos.y,
+    1.0f, 1.0f
+};
 
 /* Graphic Metrics */
 
@@ -202,12 +212,12 @@ Text game_title = {
     "Platformer",
     { 0.50f, 0.50f },
     100.0f,
-    DARKPURPLE
+    YELLOW
 };
 
 Text game_subtitle = {
     "Press Enter to Start",
-    { 0.50f, 0.65f }
+{ 0.50f, 0.65f },
 };
 
 Text game_paused = {
@@ -218,12 +228,14 @@ Text victory_title = {
     "You Won!",
     { 0.50f, 0.50f },
     100.0f,
-    RED
+    YELLOW
 };
 
 Text victory_subtitle = {
     "Press Enter to go back to menu",
-    { 0.50f, 0.65f }
+    { 0.50f, 0.65f },
+    20.0F,
+    RED
 };
 
 Text game_over_title = {
@@ -244,6 +256,7 @@ Texture2D air_image;
 Texture2D exit_image;
 Texture2D thorns_image;
 Texture2D obstacles_image;
+Texture2D logo_image;
 
 struct sprite {
     size_t frame_count    = 0;
@@ -269,6 +282,7 @@ Sound death_sound;
 Sound jump_sound;
 Sound teleport_sound;
 Sound take_boots_sound;
+Sound robot_kills_sound;
 
 Music rain_music;
 
@@ -280,14 +294,11 @@ struct victory_ball {
     float radius;
 };
 
-const size_t VICTORY_BALL_COUNT     = 20;
-const float VICTORY_BALL_MAX_SPEED  = 0.6f;
+const size_t VICTORY_BALL_COUNT     = 30;
+const float VICTORY_BALL_MAX_SPEED  = 0.8f;
 const float VICTORY_BALL_MIN_RADIUS = 10.0f;
-const float VICTORY_BALL_MAX_RADIUS = 50.0f;
-Color VICTORY_BALL_COLOR  = {     static_cast<unsigned char>(rand_from_to(0, 255)),
-                                        static_cast<unsigned char>(rand_from_to(0, 255)),
-                                        static_cast<unsigned char>(rand_from_to(0, 255)),
-                                        static_cast<unsigned char>(rand_from_to(0, 255)) };
+const float VICTORY_BALL_MAX_RADIUS = 80.0f;
+Color VICTORY_BALL_COLOR[VICTORY_BALL_COUNT];
 
 const unsigned char VICTORY_BALL_TRAIL_TRANSPARENCY = 10;
 victory_ball victory_balls[VICTORY_BALL_COUNT];
@@ -330,6 +341,7 @@ void draw_victory_menu();
 bool is_colliding(Vector2 pos, char look_for = '#', level &level = current_level);
 bool is_colliding_thorns(Vector2 pos, char look_for = 'I', level &level = current_level);
 bool is_colliding_teleport(Vector2 pos, char look_for = 'E', level &level = current_level);
+bool is_colliding_enemy(Vector2 pos, Vector2 pos2, level &level = current_level);
 char& get_collider(Vector2 pos, char look_for, level &level = current_level);
 
 void load_level(int offset = 0);
