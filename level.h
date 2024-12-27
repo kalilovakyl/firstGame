@@ -24,7 +24,7 @@ bool is_colliding_thorns(Vector2 pos, char look_for, level &level) {
     for (size_t row = 0; row < level.rows; ++row) {
         for (size_t column = 0; column < level.columns; ++column) {
             if (level.data[row * level.columns + column] == look_for) {
-                Rectangle block_hitbox = {(float) column + 0.2f, (float) row + 0.4f,  0.6f, 0.5f};
+                Rectangle block_hitbox = {(float) column + 0.4f, (float) row + 0.8f,  0.2f, 0.2f};
                 if (CheckCollisionRecs(player_hitbox, block_hitbox)) {
                     return true;
                 }

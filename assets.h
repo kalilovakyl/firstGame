@@ -24,7 +24,7 @@ void load_images() {
     coin_sprite     = load_sprite("data/images/coin/coin",     ".png", 3, true, 18);
     player_sprite   = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/player/player", ".png", 4, true, 15);
     teleport_sprite               = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/teleport/teleport",     ".png", 4, true, 20);
-    enemy_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star",     ".png", 6, true, 30);
+    enemy_sprite                  = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/star_enemy/star",     ".png", 6, true, 40);
     double_jump_boots_sprite      = load_sprite("C:/Users/Huawei/CLionProjects/firstGame/data/images/double_jump_boots/boots",     ".png", 4, true, 20);
 }
 
@@ -186,7 +186,7 @@ void unload_sounds() {
 
 void load_music() {
     rain_music = LoadMusicStream("C:/Users/Huawei/CLionProjects/firstGame/data/music/rain.mp3");
-    SetMusicVolume(rain_music,  0.3f);
+    SetMusicVolume(rain_music,  0.8f);
     PlayMusicStream(rain_music);
 }
 

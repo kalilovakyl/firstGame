@@ -35,6 +35,7 @@ void draw_menu() {
     draw_image(logo_image, {0, 0}, 1950);
     draw_text(game_title);
     draw_text(game_subtitle);
+    draw_text(escape);
 }
 
 void draw_game_overlay() {

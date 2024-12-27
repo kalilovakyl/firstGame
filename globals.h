@@ -249,6 +249,13 @@ Text game_over_subtitle = {
     { 0.50f, 0.65f }
 };
 
+Text escape = {
+    "Press Z to exit project",
+    {0.48f, 0.75f},
+    25.0f,
+    BLUE
+};
+
 /* Images and Sprites */
 
 Texture2D wall_image;
